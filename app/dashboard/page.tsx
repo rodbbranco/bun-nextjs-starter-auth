@@ -1,12 +1,7 @@
-import { getSession } from "@/lib/auth/helpers"
-import { redirect } from "next/navigation"
+import { requireAuth } from "@/lib/auth/helpers"
 
 export default async function DashboardPage() {
-  const session = await getSession()
-
-  if (!session) {
-    redirect("/sign-in")
-  }
+  const session = await requireAuth()
 
   return (
     <div className="flex min-h-svh flex-col items-center justify-center p-6">
