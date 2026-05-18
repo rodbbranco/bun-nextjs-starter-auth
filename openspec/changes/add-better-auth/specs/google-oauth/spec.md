@@ -4,7 +4,7 @@
 The system SHALL allow users to authenticate using their Google account via OAuth 2.0.
 
 #### Scenario: Successful sign-in
-- **WHEN** an unauthenticated user clicks "Continue with Google" on `/login`
+- **WHEN** an unauthenticated user clicks "Continue with Google" on `/sign-in`
 - **THEN** they are redirected to Google's OAuth consent screen
 - **THEN** after consent, they are redirected back and a session is created
 - **THEN** they are redirected to `/dashboard`
@@ -27,7 +27,7 @@ The system SHALL store the Google `accessToken` and `refreshToken` returned from
 The system SHALL only allow sign-in via Google OAuth. Email/password, magic links, and other providers SHALL NOT be configured.
 
 #### Scenario: No email/password option
-- **WHEN** an unauthenticated user visits `/login`
+- **WHEN** an unauthenticated user visits `/sign-in`
 - **THEN** they only see a "Continue with Google" button
 - **THEN** no email/password form fields or other provider buttons are displayed
 

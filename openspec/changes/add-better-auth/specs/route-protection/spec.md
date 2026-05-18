@@ -5,7 +5,7 @@ The system SHALL run Edge middleware that checks the session cookie before servi
 
 #### Scenario: Unauthenticated user redirected from protected route
 - **WHEN** an unauthenticated user requests `/dashboard/*`, `/app/*`, or `/account/*`
-- **THEN** they are redirected to `/login`
+- **THEN** they are redirected to `/sign-in`
 
 #### Scenario: Authenticated user accesses protected route
 - **WHEN** an authenticated user requests `/dashboard/*`, `/app/*`, or `/account/*`
@@ -19,10 +19,10 @@ The system SHALL define protected routes via a `PROTECTED_ROUTES` array that can
 - **THEN** that path is now protected and redirects unauthenticated users
 
 ### Requirement: Already authenticated users skip login
-The system SHALL redirect already-authenticated users from `/login` to `/dashboard`.
+The system SHALL redirect already-authenticated users from `/sign-in` to `/dashboard`.
 
 #### Scenario: Authenticated user visits login
-- **WHEN** an authenticated user visits `/login`
+- **WHEN** an authenticated user visits `/sign-in`
 - **THEN** they are redirected to `/dashboard`
 
 ### Requirement: Server-side auth helpers for RSCs and Server Actions
@@ -34,7 +34,7 @@ The system SHALL provide `getSession()` and `requireAuth()` helpers for use in S
 
 #### Scenario: requireAuth redirects unauthenticated
 - **WHEN** `requireAuth()` is called and there is no valid session
-- **THEN** it throws a redirect to `/login`
+- **THEN** it throws a redirect to `/sign-in`
 
 ### Requirement: API route auth wrapper
 The system SHALL provide a `withAuth()` wrapper for Route Handlers that returns 401 if unauthenticated.

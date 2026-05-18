@@ -21,11 +21,11 @@
 
 ## 5. Middleware & Route Protection
 
-- [x] 5.1 Create `middleware.ts` at project root — Edge middleware that checks BetterAuth session cookie, protects routes in `PROTECTED_ROUTES` array, redirects `/login` for authenticated users
+- [x] 5.1 Create `middleware.ts` at project root — Edge middleware that checks BetterAuth session cookie, protects routes in `PROTECTED_ROUTES` array, redirects `/sign-in` for authenticated users
 
 ## 6. Pages
 
-- [x] 6.1 Create `app/login/page.tsx` — centered layout with "Continue with Google" button
+- [x] 6.1 Create `app/sign-in/page.tsx` — centered layout with "Continue with Google" button
 - [x] 6.2 Create `app/dashboard/page.tsx` — protected placeholder page confirming auth works
 
 ## 7. Final Integration

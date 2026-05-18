@@ -13,7 +13,7 @@ export async function getSession() {
 export async function requireAuth() {
   const session = await getSession()
   if (!session) {
-    redirect("/login")
+    redirect("/sign-in")
   }
   return session
 }

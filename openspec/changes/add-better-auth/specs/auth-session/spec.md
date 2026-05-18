@@ -10,7 +10,7 @@ The system SHALL expire sessions after 30 days of inactivity.
 #### Scenario: Session expired after 30 days of inactivity
 - **WHEN** a user makes a request more than 30 days after last activity
 - **THEN** the session is considered expired
-- **THEN** the user is treated as unauthenticated and redirected to `/login`
+- **THEN** the user is treated as unauthenticated and redirected to `/sign-in`
 
 ### Requirement: Session is rolling
 The system SHALL extend the session expiry on each authenticated request (rolling/ sliding expiry).

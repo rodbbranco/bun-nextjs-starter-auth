@@ -11,10 +11,10 @@ export function proxy(request: NextRequest) {
     (route) => pathname === route || pathname.startsWith(`${route}/`)
   )
 
-  const isLoginPage = pathname === "/login"
+  const isLoginPage = pathname === "/sign-in"
 
   if (isProtectedRoute && !sessionCookie) {
-    const loginUrl = new URL("/login", request.url)
+    const loginUrl = new URL("/sign-in", request.url)
     return NextResponse.redirect(loginUrl)
   }
 
@@ -27,5 +27,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/app/:path*", "/account/:path*", "/login"],
+  matcher: ["/dashboard/:path*", "/app/:path*", "/account/:path*", "/sign-in"],
 }
