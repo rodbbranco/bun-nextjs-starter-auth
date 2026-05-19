@@ -10,7 +10,7 @@ The project currently supports Google OAuth only. Adding email/password auth req
 - Password reset flow with 1-hour token expiry
 - Resend as the email provider for transactional emails
 - Stricter rate limiting for credential-specific endpoints
-- Email verification guard in route protection middleware
+- Email verification guard in route protection proxy
 - Clear error when email matches existing Google account
 
 **Non-Goals:**

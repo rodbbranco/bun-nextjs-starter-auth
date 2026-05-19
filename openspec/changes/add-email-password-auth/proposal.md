@@ -9,7 +9,7 @@ The existing authentication system only supports Google OAuth, excluding users w
 - Add email verification flow via Resend with automatic email sending on sign-up
 - Add password reset flow (forgot password + reset password pages)
 - Add stricter rate limiting rules for credential-specific endpoints
-- Add email verification check to route protection middleware
+- Add email verification check to route protection proxy
 - Add new env vars for Resend API key and from-email
 - Block account linking when email matches existing Google account (clear error message)
 - Update google-oauth spec to reflect coexistence with credentials auth

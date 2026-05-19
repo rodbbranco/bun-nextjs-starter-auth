@@ -1,6 +1,6 @@
 ## ADDED Requirements
 
-### Requirement: Email verification check in middleware
+### Requirement: Email verification check in proxy
 The system SHALL check that authenticated users have verified their email before accessing protected routes.
 
 #### Scenario: Unverified user redirected from protected route

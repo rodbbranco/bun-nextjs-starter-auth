@@ -3,8 +3,8 @@
 ## Purpose
 TBD - created by archiving change add-better-auth. Update Purpose after archive.
 ## Requirements
-### Requirement: Middleware protects configured routes
-The system SHALL run Edge middleware that checks the session cookie before serving protected routes.
+### Requirement: Proxy protects configured routes
+The system SHALL run a proxy that checks the session cookie before serving protected routes.
 
 #### Scenario: Unauthenticated user redirected from protected route
 - **WHEN** an unauthenticated user requests `/dashboard/*`, `/app/*`, or `/account/*`
@@ -18,7 +18,7 @@ The system SHALL run Edge middleware that checks the session cookie before servi
 The system SHALL define protected routes via a `PROTECTED_ROUTES` array that can be easily modified.
 
 #### Scenario: Route added to PROTECTED_ROUTES
-- **WHEN** a new path is added to the `PROTECTED_ROUTES` array in middleware
+- **WHEN** a new path is added to the `PROTECTED_ROUTES` array in proxy.ts
 - **THEN** that path is now protected and redirects unauthenticated users
 
 ### Requirement: Already authenticated users skip login
