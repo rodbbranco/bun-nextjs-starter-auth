@@ -15,6 +15,9 @@ export async function requireAuth() {
   if (!session) {
     redirect("/sign-in")
   }
+  if (!session.user.emailVerified) {
+    redirect("/verify-email-notice")
+  }
   return session
 }
 
