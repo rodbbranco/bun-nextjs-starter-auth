@@ -26,13 +26,13 @@ The system SHALL store the Google `accessToken` and `refreshToken` returned from
 - **THEN** the `accessToken` and `refreshToken` from Google are stored in the `account` table
 - **THEN** these tokens are accessible via the session for future Google API calls
 
-### Requirement: Only Google OAuth provider enabled
-The system SHALL only allow sign-in via Google OAuth. Email/password, magic links, and other providers SHALL NOT be configured.
+### Requirement: Both Google OAuth and email/password providers enabled
+The system SHALL allow sign-in via both Google OAuth and email/password authentication.
 
-#### Scenario: No email/password option
+#### Scenario: Both options available
 - **WHEN** an unauthenticated user visits `/sign-in`
-- **THEN** they only see a "Continue with Google" button
-- **THEN** no email/password form fields or other provider buttons are displayed
+- **THEN** they see a "Continue with Google" button
+- **THEN** they see email and password input fields for credentials sign-in
 
 ### Requirement: Google OAuth scopes
 The system SHALL request `openid`, `email`, and `profile` scopes from Google OAuth.

@@ -1,13 +1,23 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
 import { authClient } from "@/lib/auth/auth-client"
 import { Button } from "@/components/ui/button"
 
 export default function VerifyEmailNoticePage() {
+  const router = useRouter()
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    authClient.getSession().then((session) => {
+      if (session.data?.user?.emailVerified) {
+        router.push("/dashboard")
+      }
+    })
+  }, [router])
 
   const handleResend = async () => {
     setError(null)

@@ -24,7 +24,7 @@ export default function SignUpPage() {
       name,
       email,
       password,
-      callbackURL: "/verify-email-notice",
+      callbackURL: "/dashboard",
     })
 
     setLoading(false)

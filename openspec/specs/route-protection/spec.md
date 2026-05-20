@@ -22,11 +22,15 @@ The system SHALL define protected routes via a `PROTECTED_ROUTES` array that can
 - **THEN** that path is now protected and redirects unauthenticated users
 
 ### Requirement: Already authenticated users skip login
-The system SHALL redirect already-authenticated users from `/sign-in` to `/dashboard`.
+The system SHALL NOT redirect based on cookie-only existence from `/sign-in`. The proxy SHALL only handle unauthenticated redirects from protected routes. Authenticated user redirects from `/sign-in` SHALL be handled by the sign-in page itself with proper session validation.
 
-#### Scenario: Authenticated user visits login
-- **WHEN** an authenticated user visits `/sign-in`
-- **THEN** they are redirected to `/dashboard`
+#### Scenario: Unauthenticated user visits login
+- **WHEN** an unauthenticated (or invalid session) user visits `/sign-in`
+- **THEN** the sign-in page renders normally without redirect
+
+#### Scenario: Authenticated user visits login with valid session
+- **WHEN** a user with a valid session visits `/sign-in`
+- **THEN** the sign-in page MAY optionally redirect to `/dashboard` after validating the session via `authClient.getSession()`
 
 ### Requirement: Server-side auth helpers for RSCs and Server Actions
 The system SHALL provide `getSession()` and `requireAuth()` helpers for use in Server Components and Server Actions.
