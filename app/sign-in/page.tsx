@@ -1,135 +1,25 @@
-"use client"
+import Link from "next/link"
 
-import { useState } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
-import { authClient } from "@/lib/auth/auth-client"
-import { Button } from "@/components/ui/button"
-import { Eye, EyeSlash } from "@phosphor-icons/react"
+import { AuthLayout } from "@/components/auth/AuthLayout"
+import { SignInForm } from "@/components/auth/SignInForm"
 
-export default function LoginPage() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [showPassword, setShowPassword] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const [loading, setLoading] = useState(false)
-
-  const resetSuccess = searchParams.get("reset") === "success"
-
-  const handleGoogleSignIn = async () => {
-    await authClient.signIn.social({
-      provider: "google",
-    })
-  }
-
-  const handleEmailSignIn = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError(null)
-    setLoading(true)
-
-    const { data, error: signInError } = await authClient.signIn.email(
-      {
-        email,
-        password,
-      },
-      {
-        onError: (ctx) => {
-          if (ctx.error.status === 403) {
-            router.push("/verify-email-notice")
-          }
-        },
-      }
-    )
-
-    setLoading(false)
-
-    if (signInError) {
-      setError(signInError.message || "Invalid email or password")
-      return
-    }
-
-    if (data) {
-      router.push("/dashboard")
-    }
-  }
-
+export default function SignInPage() {
   return (
-    <div className="flex min-h-svh items-center justify-center">
-      <div className="flex w-full max-w-sm flex-col items-center gap-6 text-center">
-        <div className="flex flex-col gap-2">
-          <h1 className="text-2xl font-medium">Welcome</h1>
-          <p className="text-sm text-muted-foreground">Sign in to continue</p>
-        </div>
-
-        {resetSuccess && (
-          <p className="text-sm text-green-600">Password reset successfully. Please sign in.</p>
-        )}
-
-        <Button onClick={handleGoogleSignIn} className="w-full">
-          Continue with Google
-        </Button>
-
-        <div className="flex w-full items-center gap-4">
-          <div className="h-px flex-1 bg-border" />
-          <span className="text-xs text-muted-foreground">or continue with email</span>
-          <div className="h-px flex-1 bg-border" />
-        </div>
-
-        <form onSubmit={handleEmailSignIn} className="flex w-full flex-col gap-4">
-          <div className="flex flex-col gap-2">
-            <label htmlFor="email" className="text-sm font-medium">
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-              placeholder="john@example.com"
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <label htmlFor="password" className="text-sm font-medium">
-              Password
-            </label>
-            <div className="relative">
-              <input
-                id="password"
-                type={showPassword ? "text" : "password"}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 pr-10 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                placeholder="••••••••"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                tabIndex={-1}
-              >
-                {showPassword ? <EyeSlash size={20} /> : <Eye size={20} />}
-              </button>
-            </div>
-          </div>
-          {error && <p className="text-sm text-destructive">{error}</p>}
-          <Button type="submit" disabled={loading} className="w-full">
-            {loading ? "Signing in..." : "Sign in"}
-          </Button>
-        </form>
-
+    <AuthLayout
+      title="Welcome"
+      description="Sign in to continue"
+      footer={
         <div className="flex w-full justify-between text-sm">
-          <a href="/forgot-password" className="text-muted-foreground hover:text-primary">
+          <Link href="/forgot-password" className="text-muted-foreground hover:text-primary">
             Forgot password?
-          </a>
-          <a href="/signup" className="text-muted-foreground hover:text-primary">
+          </Link>
+          <Link href="/signup" className="text-muted-foreground hover:text-primary">
             Don&apos;t have an account? Sign up
-          </a>
+          </Link>
         </div>
-      </div>
-    </div>
+      }
+    >
+      <SignInForm />
+    </AuthLayout>
   )
 }
