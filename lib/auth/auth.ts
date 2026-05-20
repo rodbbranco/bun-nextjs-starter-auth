@@ -1,7 +1,7 @@
 import { betterAuth } from "better-auth"
 import { drizzleAdapter } from "@better-auth/drizzle-adapter"
-import { db } from "@/db"
-import * as schema from "@/db/schema"
+import { db } from "@/drizzle/db"
+import * as schema from "@/drizzle/schema"
 import { sendVerificationEmail, sendPasswordResetEmail } from "@/lib/email"
 
 export const auth = betterAuth({
@@ -52,7 +52,7 @@ export const auth = betterAuth({
       },
       "/sign-up/email": {
         window: 3600,
-        max: 3,
+        max: 20,
       },
       "/forget-password": {
         window: 3600,
