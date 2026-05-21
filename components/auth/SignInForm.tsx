@@ -1,7 +1,7 @@
 "use client"
 
 import { useRouter, useSearchParams } from "next/navigation"
-import { useState, useId } from "react"
+import { useState, useId, useEffect } from "react"
 import { useForm } from "@tanstack/react-form"
 import { Eye, EyeClosed } from "@phosphor-icons/react"
 
@@ -10,6 +10,11 @@ import { signInSchema } from "@/lib/validations/auth"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Field, FieldLabel, FieldContent, FieldError } from "@/components/ui/field"
+
+const oauthErrorMessages: Record<string, string> = {
+  account_not_linked:
+    "This email is already registered. Sign in with email and password, or use the same Google account.",
+}
 
 export function SignInForm() {
   const router = useRouter()
@@ -20,6 +25,16 @@ export function SignInForm() {
   const passwordId = useId()
 
   const resetSuccess = searchParams.get("reset") === "success"
+
+  useEffect(() => {
+    const error = searchParams.get("error")
+    if (error) {
+      setServerError(oauthErrorMessages[error] || "Sign in with Google failed. Please try again or use email/password.")
+      const params = new URLSearchParams(searchParams.toString())
+      params.delete("error")
+      router.replace(`?${params.toString()}`)
+    }
+  }, [searchParams, router])
 
   const form = useForm({
     defaultValues: {
@@ -59,6 +74,7 @@ export function SignInForm() {
   const handleGoogleSignIn = async () => {
     await authClient.signIn.social({
       provider: "google",
+      callbackURL: "/dashboard",
     })
   }
 

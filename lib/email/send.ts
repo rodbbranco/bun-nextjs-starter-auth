@@ -11,11 +11,16 @@ export async function sendEmail(
     return
   }
 
-  await resend.emails.send({
-    from: fromEmail,
-    to,
-    subject,
-    html,
-    text,
-  })
+  try {
+    await resend.emails.send({
+      from: fromEmail,
+      to,
+      subject,
+      html,
+      text,
+    })
+  } catch (error) {
+    console.error("Failed to send email:", error)
+    throw error
+  }
 }

@@ -17,12 +17,12 @@ export const auth = betterAuth({
     minPasswordLength: 8,
     maxPasswordLength: 128,
     sendResetPassword: async ({ user, url }) => {
-      void sendPasswordResetEmail(user.email, url)
+      sendPasswordResetEmail(user.email, url).catch(console.error)
     },
   },
   emailVerification: {
     sendVerificationEmail: async ({ user, url }) => {
-      void sendVerificationEmail(user.email, url)
+      sendVerificationEmail(user.email, url).catch(console.error)
     },
   },
   socialProviders: {
@@ -73,7 +73,8 @@ export const auth = betterAuth({
   },
   account: {
     accountLinking: {
-      enabled: false,
+      enabled: true,
+      trustedProviders: ["google"],
     },
   },
 })

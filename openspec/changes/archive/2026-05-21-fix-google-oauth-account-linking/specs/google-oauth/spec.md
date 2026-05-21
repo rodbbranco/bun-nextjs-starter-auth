@@ -1,8 +1,5 @@
-# google-oauth Specification
+## MODIFIED Requirements
 
-## Purpose
-TBD - created by archiving change add-better-auth. Update Purpose after archive.
-## Requirements
 ### Requirement: User can sign in with Google
 The system SHALL allow users to authenticate using their Google account via OAuth 2.0.
 
@@ -41,6 +38,8 @@ The system SHALL request `openid`, `email`, and `profile` scopes from Google OAu
 - **WHEN** the OAuth flow is initiated
 - **THEN** the authorization URL includes `scope=openid email profile`
 
+## ADDED Requirements
+
 ### Requirement: Existing email/password accounts are linked to Google on sign-in
 When a user with an existing email/password account signs in with Google OAuth using the same email address, the system SHALL automatically link the Google account to the existing user record.
 
@@ -58,4 +57,3 @@ When a user with an existing email/password account signs in with Google OAuth u
 - **WHEN** a user signs in with Google using an email different from their existing account email
 - **THEN** the sign-in is rejected with an error
 - **THEN** the accounts are not linked
-
