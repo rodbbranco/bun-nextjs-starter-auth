@@ -1,3 +1,4 @@
+import { Suspense } from "react"
 import Link from "next/link"
 
 import { AuthLayout } from "@/components/auth/AuthLayout"
@@ -19,7 +20,9 @@ export default function SignInPage() {
         </div>
       }
     >
-      <SignInForm />
+      <Suspense fallback={<div>Loading...</div>}>
+        <SignInForm />
+      </Suspense>
     </AuthLayout>
   )
 }

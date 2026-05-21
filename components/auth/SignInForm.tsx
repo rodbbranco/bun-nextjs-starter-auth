@@ -9,7 +9,7 @@ import { authClient } from "@/lib/auth/auth-client"
 import { signInSchema } from "@/lib/validations/auth"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form"
+import { Field, FieldLabel, FieldContent, FieldError } from "@/components/ui/field"
 
 export function SignInForm() {
   const router = useRouter()
@@ -87,10 +87,11 @@ export function SignInForm() {
         className="flex w-full flex-col gap-4"
       >
         <form.Field name="email">
-          {(field) => (
-            <FormItem>
-              <FormLabel htmlFor={emailId}>Email</FormLabel>
-              <FormControl>
+          {(field) => {
+            const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+            return (
+              <Field data-invalid={isInvalid}>
+                <FieldLabel htmlFor={emailId}>Email</FieldLabel>
                 <Input
                   id={emailId}
                   type="email"
@@ -99,46 +100,47 @@ export function SignInForm() {
                   value={field.state.value}
                   onBlur={field.handleBlur}
                   onChange={(e) => field.handleChange(e.target.value)}
+                  aria-invalid={isInvalid}
                 />
-              </FormControl>
-              <FormMessage>
-                {field.state.meta.errors[0] as string | undefined}
-              </FormMessage>
-            </FormItem>
-          )}
+                {isInvalid && <FieldError errors={field.state.meta.errors} />}
+              </Field>
+            )
+          }}
         </form.Field>
 
         <form.Field name="password">
-          {(field) => (
-            <FormItem>
-              <FormLabel htmlFor={passwordId}>Password</FormLabel>
-              <div className="relative">
-                <FormControl>
-                  <Input
-                    id={passwordId}
-                    type={showPassword ? "text" : "password"}
-                    autoComplete="current-password"
-                    placeholder="••••••••"
-                    value={field.state.value}
-                    onBlur={field.handleBlur}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    className="pr-10"
-                  />
-                </FormControl>
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                  tabIndex={-1}
-                >
-                  {showPassword ? <EyeClosed size={20} /> : <Eye size={20} />}
-                </button>
-              </div>
-              <FormMessage>
-                {field.state.meta.errors[0] as string | undefined}
-              </FormMessage>
-            </FormItem>
-          )}
+          {(field) => {
+            const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+            return (
+              <Field data-invalid={isInvalid}>
+                <FieldLabel htmlFor={passwordId}>Password</FieldLabel>
+                <FieldContent>
+                  <div className="relative">
+                    <Input
+                      id={passwordId}
+                      type={showPassword ? "text" : "password"}
+                      autoComplete="current-password"
+                      placeholder="••••••••"
+                      value={field.state.value}
+                      onBlur={field.handleBlur}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                      className="pr-10"
+                      aria-invalid={isInvalid}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                      tabIndex={-1}
+                    >
+                      {showPassword ? <EyeClosed size={20} /> : <Eye size={20} />}
+                    </button>
+                  </div>
+                  {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                </FieldContent>
+              </Field>
+            )
+          }}
         </form.Field>
 
         {serverError && <p className="text-sm text-destructive">{serverError}</p>}
