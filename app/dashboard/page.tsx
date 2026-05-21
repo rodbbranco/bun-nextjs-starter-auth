@@ -1,5 +1,5 @@
 import { requireAuth } from "@/lib/auth/helpers"
-import SignOutButton from "@/components/auth/signOutButton"
+import SignOutButton from "@/components/auth/SignOutButton"
 
 export default async function DashboardPage() {
   const session = await requireAuth()
