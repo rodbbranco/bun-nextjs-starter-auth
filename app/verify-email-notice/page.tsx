@@ -1,7 +1,6 @@
 "use client"
 
-import type { Metadata } from "next"
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { authClient } from "@/lib/auth/auth-client"
 import { Button } from "@/components/ui/button"
@@ -65,7 +64,10 @@ export default function VerifyEmailNoticePage() {
       title="Check your inbox"
       description="We sent you a verification email. Please click the link in the email to verify your account."
       footer={
-        <Link href="/sign-in" className="text-sm text-muted-foreground hover:text-primary">
+        <Link
+          href="/sign-in"
+          className="text-sm text-muted-foreground hover:text-primary"
+        >
           Back to sign in
         </Link>
       }

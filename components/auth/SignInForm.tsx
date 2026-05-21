@@ -19,24 +19,29 @@ const oauthErrorMessages: Record<string, string> = {
 export function SignInForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const [serverError, setServerError] = useState<string | null>(null)
+  // Derive the initial OAuth error message directly from searchParams so we
+  // never need to call setState inside an effect body.
+  const oauthErrorParam = searchParams.get("error")
+  const initialError = oauthErrorParam
+    ? (oauthErrorMessages[oauthErrorParam] ||
+        "Sign in with Google failed. Please try again or use email/password.")
+    : null
+
+  const [serverError, setServerError] = useState<string | null>(initialError)
   const emailId = useId()
   const passwordId = useId()
 
   const resetSuccess = searchParams.get("reset") === "success"
 
+  // Side-effect only: clean the ?error= param from the URL without causing a
+  // re-render loop. No setState here — the error message is already in state.
   useEffect(() => {
-    const error = searchParams.get("error")
-    if (error) {
-      setServerError(
-        oauthErrorMessages[error] ||
-          "Sign in with Google failed. Please try again or use email/password."
-      )
-      const params = new URLSearchParams(searchParams.toString())
-      params.delete("error")
-      router.replace(`?${params.toString()}`)
-    }
-  }, [searchParams, router])
+    if (!oauthErrorParam) return
+    const params = new URLSearchParams(searchParams.toString())
+    params.delete("error")
+    router.replace(`?${params.toString()}`)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []) // intentionally run once on mount only
 
   const form = useForm({
     defaultValues: {
