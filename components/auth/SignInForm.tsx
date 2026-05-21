@@ -3,7 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation"
 import { useState, useId } from "react"
 import { useForm } from "@tanstack/react-form"
-import { Eye, EyeSlash } from "@phosphor-icons/react"
+import { Eye, EyeClosed } from "@phosphor-icons/react"
 
 import { authClient } from "@/lib/auth/auth-client"
 import { signInSchema } from "@/lib/validations/auth"
@@ -131,7 +131,7 @@ export function SignInForm() {
                   className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
                   tabIndex={-1}
                 >
-                  {showPassword ? <EyeSlash size={20} /> : <Eye size={20} />}
+                  {showPassword ? <EyeClosed size={20} /> : <Eye size={20} />}
                 </button>
               </div>
               <FormMessage>
