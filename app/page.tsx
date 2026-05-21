@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button"
 import Link from "next/link"
 
 export default function Page() {
@@ -9,9 +9,9 @@ export default function Page() {
           <h1 className="font-medium">Project ready!</h1>
           <p>You may now add components and start building.</p>
           <p>We&apos;ve already added the button component for you.</p>
-          <Button render={<Link href="/dashboard"/>} className="mt-2">
+          <Link href="/dashboard" className={buttonVariants({ className: "mt-2" })}>
             Login
-          </Button>
+          </Link>
         </div>
         <div className="font-mono text-xs text-muted-foreground">
           (Press <kbd>d</kbd> to toggle dark mode)
