@@ -1,7 +1,13 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 
 import { AuthLayout } from "@/components/auth/AuthLayout"
 import { SignUpForm } from "@/components/auth/SignUpForm"
+
+export const metadata: Metadata = {
+  title: "Create account",
+  description: "Create a new account to get started.",
+}
 
 export default function SignUpPage() {
   return (

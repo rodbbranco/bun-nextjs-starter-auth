@@ -17,19 +17,6 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(loginUrl)
   }
 
-  // Missing: redirect authenticated users away from auth pages
-  const AUTH_ROUTES = [
-    "/sign-in",
-    "/signup",
-    "/forgot-password",
-    "/reset-password",
-    "/verify-email-notice",
-  ]
-
-  if (AUTH_ROUTES.some((r) => pathname.startsWith(r)) && sessionCookie) {
-    return NextResponse.redirect(new URL("/dashboard", request.url))
-  }
-
   return NextResponse.next()
 }
 
@@ -39,7 +26,7 @@ export const config = {
     "/app/:path*",
     "/account/:path*",
     "/sign-in",
-    "/signup",
+    "/sign-up",
     "/forgot-password",
     "/reset-password",
     "/verify-email-notice",

@@ -1,5 +1,12 @@
+import type { Metadata } from "next"
+
 import { requireAuth } from "@/lib/auth/helpers"
-import SignOutButton from "@/components/auth/SignOutButton"
+import { SignOutButton } from "@/components/auth/SignOutButton"
+
+export const metadata: Metadata = {
+  title: "Dashboard",
+  description: "Your dashboard overview.",
+}
 
 export default async function DashboardPage() {
   const session = await requireAuth()

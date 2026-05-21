@@ -1,8 +1,14 @@
+import type { Metadata } from "next"
 import { Suspense } from "react"
 import Link from "next/link"
 
 import { AuthLayout } from "@/components/auth/AuthLayout"
 import { SignInForm } from "@/components/auth/SignInForm"
+
+export const metadata: Metadata = {
+  title: "Sign in",
+  description: "Sign in to your account to continue.",
+}
 
 export default function SignInPage() {
   return (
@@ -14,7 +20,7 @@ export default function SignInPage() {
           <Link href="/forgot-password" className="text-muted-foreground hover:text-primary">
             Forgot password?
           </Link>
-          <Link href="/signup" className="text-muted-foreground hover:text-primary">
+          <Link href="/sign-up" className="text-muted-foreground hover:text-primary">
             Don&apos;t have an account? Sign up
           </Link>
         </div>
