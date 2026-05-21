@@ -3,6 +3,7 @@ import { Geist_Mono, Noto_Sans, Nunito_Sans } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
+import React from "react"
 
 const notoSansHeading = Noto_Sans({
   subsets: ["latin"],
