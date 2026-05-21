@@ -4,7 +4,7 @@ import { authClient } from "@/lib/auth/auth-client"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 
-const SignOutButton = () => {
+export default function SignOutButton () {
   const router = useRouter()
 
   const handleLogout = async () => {
@@ -18,5 +18,3 @@ const SignOutButton = () => {
   }
   return <Button onClick={handleLogout}>Logout</Button>
 }
-
-export default SignOutButton

@@ -4,6 +4,7 @@ import { useState } from "react"
 import { authClient } from "@/lib/auth/auth-client"
 import { Button } from "@/components/ui/button"
 import { AuthLayout } from "@/components/auth/AuthLayout"
+import Link from "next/link"
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("")
@@ -19,7 +20,7 @@ export default function ForgotPasswordPage() {
 
     const { error: resetError } = await authClient.requestPasswordReset({
       email,
-      redirectTo: `${window.location.origin}/reset-password`,
+      redirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/reset-password`,
     })
 
     setLoading(false)
@@ -38,9 +39,9 @@ export default function ForgotPasswordPage() {
         title="Check your email"
         description="If an account with that email exists, a reset link has been sent."
         footer={
-          <a href="/sign-in">
+          <Link href="/sign-in">
             <Button variant="outline">Back to sign in</Button>
-          </a>
+          </Link>
         }
       />
     )
