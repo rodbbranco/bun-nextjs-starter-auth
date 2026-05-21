@@ -5,7 +5,7 @@ import * as React from "react"
 interface AuthLayoutProps {
   title: string
   description: string
-  children: React.ReactNode
+  children?: React.ReactNode
   footer?: React.ReactNode
 }
 
